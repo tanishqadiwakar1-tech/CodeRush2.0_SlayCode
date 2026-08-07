@@ -1,0 +1,30 @@
+id: PROC-SAFE-MODE-01
+version: "1.0"
+title: Safe Mode Entry Procedure
+description: >
+  Places the spacecraft into safe mode, powering down all non-essential
+  systems and orienting to sun-pointing for power generation.
+
+preconditions:
+  - battery_soc < 20
+
+steps:
+  - id: step_1
+    action: power_down_payload
+    description: "Power down all payload instruments."
+    expected_effect: "Payload power consumption drops to 0W."
+  - id: step_2
+    action: enter_sun_pointing
+    description: "Enter sun-pointing attitude mode for maximum solar generation."
+    expected_effect: "Solar generation reaches maximum (~150W)."
+  - id: step_3
+    action: disable_downlink
+    description: "Disable all non-emergency downlink activities."
+    expected_effect: "Communication subsystem enters standby."
+  - id: step_4
+    action: monitor_battery_recovery
+    description: "Monitor battery SoC until it recovers above 50%."
+    expected_effect: "Battery SoC should recover within 30 minutes."
+
+rollback:
+  - action: resume_nominal_operations

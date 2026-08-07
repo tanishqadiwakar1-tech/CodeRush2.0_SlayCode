@@ -1,0 +1,33 @@
+id: PROC-BATT-THERMAL-01
+version: "1.2"
+title: Battery Thermal Excursion Response
+description: >
+  Responds to a battery thermal excursion by reducing payload power,
+  disabling non-critical instruments, re-orienting for radiator cooling,
+  and monitoring temperature stabilisation.
+
+preconditions:
+  - battery_temp > 35
+  - comm_window_available == true
+
+steps:
+  - id: step_1
+    action: reduce_payload_power
+    description: "Reduce payload power consumption to minimum safe level."
+    expected_effect: "Power draw decreases by ~40W."
+  - id: step_2
+    action: disable_noncritical_instruments
+    description: "Disable non-critical instruments to reduce thermal load."
+    expected_effect: "Thermal generation from instruments drops to near zero."
+  - id: step_3
+    action: orient_for_radiator_cooling
+    description: "Orient spacecraft to maximise radiator exposure to deep space."
+    expected_effect: "Radiator efficiency improves; thermal dissipation increases."
+  - id: step_4
+    action: monitor_temperature_for_300s
+    description: "Monitor battery temperature for 300 seconds to confirm stabilisation."
+    expected_effect: "Battery temperature should drop below 35°C within 5 minutes."
+
+rollback:
+  - action: restore_nominal_pointing
+  - action: re_enable_instruments

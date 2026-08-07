@@ -1,0 +1,24 @@
+profiles:
+  nominal:
+    description: "Normal operations telemetry profile."
+    battery_soc_range: [85.0, 100.0]
+    battery_temp_range: [15.0, 25.0]
+    bus_voltage_range: [27.0, 28.5]
+    storage_used_gb_range: [8.0, 12.0]
+    solar_generation_w: 150.0
+
+  eclipse:
+    description: "Eclipse period with no solar generation."
+    battery_soc_range: [50.0, 85.0]
+    battery_temp_range: [10.0, 20.0]
+    bus_voltage_range: [25.0, 27.5]
+    storage_used_gb_range: [8.0, 12.0]
+    solar_generation_w: 0.0
+
+  high_activity:
+    description: "High-activity period with instruments running."
+    battery_soc_range: [40.0, 70.0]
+    battery_temp_range: [25.0, 35.0]
+    bus_voltage_range: [26.0, 28.0]
+    storage_used_gb_range: [10.0, 15.0]
+    solar_generation_w: 150.0

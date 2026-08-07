@@ -1,0 +1,57 @@
+faults:
+  battery_thermal_runaway:
+    description: "Battery thermal excursion causing rising temperatures."
+    severity: HIGH
+    affected_parameters:
+      - battery_temp
+      - bus_voltage
+    detection_threshold: "battery_temp > 35.0"
+    recommended_procedure: "PROC-BATT-THERMAL-01"
+
+  sensor_drift:
+    description: "Gradual sensor drift on temperature readings."
+    severity: MEDIUM
+    affected_parameters:
+      - battery_temp
+    detection_threshold: "battery_temp deviation > 5.0 from baseline"
+    recommended_procedure: "PROC-SENSOR-RECAL-01"
+
+  power_excursion:
+    description: "Unexpected power draw from instruments."
+    severity: HIGH
+    affected_parameters:
+      - battery_soc
+      - bus_voltage
+    detection_threshold: "battery_soc dropping > 1% per minute"
+    recommended_procedure: "PROC-SAFE-MODE-01"
+
+  thermal_runaway:
+    description: "Uncontrolled temperature rise in thermal zone."
+    severity: CRITICAL
+    affected_parameters:
+      - battery_temp
+    detection_threshold: "battery_temp > 50.0"
+    recommended_procedure: "PROC-BATT-THERMAL-01"
+
+  communication_delay:
+    description: "Ground station communication link degradation."
+    severity: LOW
+    affected_parameters:
+      - antenna_visible
+    detection_threshold: "comm_window missed"
+    recommended_procedure: null
+
+  actuator_failure:
+    description: "Reaction wheel or thruster failure."
+    severity: HIGH
+    affected_parameters:
+      - pointing_mode
+    detection_threshold: "pointing_mode stuck"
+    recommended_procedure: "PROC-SAFE-MODE-01"
+
+  packet_loss:
+    description: "Telemetry packet loss causing data gaps."
+    severity: MEDIUM
+    affected_parameters: []
+    detection_threshold: "packet_count < expected"
+    recommended_procedure: null
